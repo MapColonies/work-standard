@@ -41,5 +41,5 @@ Every release should contain the proper git tag, changelog and should be in sync
 1. Use the best practices described in [goldbergyoni/javascript-testing-best-practices](https://github.com/goldbergyoni/javascript-testing-best-practices#clap-doing-it-right-example-testing-many-input-permutations-with-fast-check)
 2. Unit test should check for code coverage, code coverage is not the only kpi for `code quality` but it is a factor. [more on nyc here](https://www.npmjs.com/package/nyc).
 3. Code without tests or bugs fixes without new tests introduced that covers the bug fix are **not** welcome!
-4. when describeing tests user `Unhappy` and `Happy` paths more on that, [here](https://en.wikipedia.org/wiki/Happy_path) and [here](https://www.h2kinfosys.com/blog/happy-path-testing/)
+4. when describing tests user `Unhappy` and `Happy` paths more on that, [here](https://en.wikipedia.org/wiki/Happy_path) and [here](https://www.h2kinfosys.com/blog/happy-path-testing/)
 
