@@ -4,29 +4,28 @@ info:
   description: basic template for map colonies service
   version: 1.0.0
 servers:
-- url: http://localhost:1337
+  - url: http://localhost:1337
 paths:
   /helloworld:
     get:
       tags:
-      - helloWorld
+        - helloWorld
       summary: hello world
       responses:
         200:
           description: OK
           content:
-           application/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/helloWorld'
 components:
   schemas:
     helloWorld:
       required:
-      - hello
+        - hello
       type: object
       properties:
         hello:
           type: string
       example:
         hello: world
-  

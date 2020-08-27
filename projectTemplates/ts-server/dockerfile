@@ -4,6 +4,8 @@ COPY ./package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
+#reomve node modules and install only production dependencies
+#this step is require beacuse npm install fails on alpine
 RUN rm -r ./node_modules && npm install --only=production
 
 
