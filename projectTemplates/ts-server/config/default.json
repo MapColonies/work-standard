@@ -1,0 +1,11 @@
+{
+  "swagger":{
+    "swaggerPath": "./api/swagger.yaml",
+    "jsonPath": "/api-json",
+    "uiPath": "/api-docs"
+  },
+  "serverPort": 1337,
+  "logger":{
+    "level": "info"
+  }
+}
