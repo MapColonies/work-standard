@@ -2,10 +2,9 @@ import express from 'express';
 import { initAsync as validatorInit } from 'openapi-validator-middleware';
 import { MCLogger } from '@map-colonies/mc-logger';
 import { injectable } from 'tsyringe';
-import { helloWorldController } from './controllers/helloWorld';
-import { SwaggerController } from './controllers/swagger';
 import { RequestLogger } from './middleware/RequestLogger';
 import { ErrorHandler } from './middleware/ErrorHandler';
+import { globalRouter } from './routers/global';
 
 @injectable()
 export class ServerBuilder {
@@ -13,7 +12,6 @@ export class ServerBuilder {
 
   public constructor(
     private readonly logger: MCLogger,
-    private readonly swaggerController: SwaggerController,
     private readonly requestLogger: RequestLogger,
     private readonly errorHandler: ErrorHandler
   ) {
@@ -22,17 +20,12 @@ export class ServerBuilder {
 
   public async build(): Promise<express.Application> {
     //initiate swagger validator
-    await validatorInit('./api/swagger.yaml');
+    await validatorInit('./docs/openapi3.yaml');
 
     this.registerMiddleware();
-    this.registerControllers();
+    this.serverInstance.use(globalRouter);
 
     return this.serverInstance;
-  }
-
-  private registerControllers(): void {
-    this.serverInstance.use(this.swaggerController.getRouter());
-    this.serverInstance.use('/helloworld', helloWorldController);
   }
 
   private registerMiddleware(): void {

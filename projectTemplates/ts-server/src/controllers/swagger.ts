@@ -1,46 +1,42 @@
 import swaggerUi from 'swagger-ui-express';
 import { get } from 'config';
 import { MCLogger } from '@map-colonies/mc-logger';
-import { Request, Response, Router, IRouter } from 'express';
+import { Request, Response, RequestHandler, NextFunction } from 'express';
 import { load } from 'yamljs';
-import { injectable } from 'tsyringe';
+import { injectable, delay, inject } from 'tsyringe';
+import { config as initDotEnv } from 'dotenv';
 
 @injectable()
 export class SwaggerController {
+  public uiMiddleware: RequestHandler[];
+  public serveUi: RequestHandler;
+
+  private readonly swaggerDoc: swaggerUi.JsonObject;
+
   private readonly swaggerConfig: {
     jsonPath: string;
     uiPath: string;
   };
 
-  private readonly swaggerDoc: swaggerUi.JsonObject;
-  private readonly router = Router();
-
-  public constructor(private readonly logger: MCLogger) {
+  public constructor(
+    @inject(delay(() => MCLogger)) private readonly logger: MCLogger
+  ) {
     this.swaggerConfig = get('swagger');
     // load swagger object from file
-    this.swaggerDoc = load('./api/swagger.yaml') as swaggerUi.JsonObject;
-    this.init();
+    this.swaggerDoc = load('./docs/openapi3.yaml') as swaggerUi.JsonObject;
+    this.setSwaggerHost();
+    this.serveUi = swaggerUi.setup(this.swaggerDoc);
+    this.uiMiddleware = swaggerUi.serve;
   }
 
-  public getRouter(): IRouter {
-    return this.router;
+  public serveJson(req: Request, res: Response): void {
+    res.json(this.swaggerDoc);
   }
 
-  private init(): void {
-    // register swagger ui handler
-    const swaggerJsonPath = this.swaggerConfig.jsonPath;
-    if (swaggerJsonPath && swaggerJsonPath !== '') {
-      this.router.get(swaggerJsonPath, (req: Request, res: Response) => {
-        res.json(this.swaggerDoc);
-      });
-    }
-    const swaggerPath = this.swaggerConfig.uiPath;
-    // register swagger json handler
-    this.router.use(
-      swaggerPath,
-      swaggerUi.serve,
-      swaggerUi.setup(this.swaggerDoc)
-    );
-    this.logger.info(`added swagger at ${swaggerPath}`);
+  private setSwaggerHost(): void {
+    initDotEnv();
+    const host: string = process.env.HOST ?? 'http://localhost';
+    const port: string = process.env.SERVER_PORT ?? '80';
+    this.swaggerDoc.servers[0].url = `${host}:${port}`;
   }
 }

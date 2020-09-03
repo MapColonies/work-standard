@@ -1,5 +1,4 @@
-//this import must be called before the first import of tsyring
-import 'reflect-metadata';
+import { readFileSync } from 'fs';
 import { container } from 'tsyringe';
 import { get } from 'config';
 import { Probe } from '@map-colonies/mc-probe';
@@ -8,7 +7,6 @@ import {
   ILoggerConfig,
   IServiceConfig,
 } from '@map-colonies/mc-logger';
-import { readFileSync } from 'fs';
 
 function registerExternalValues(): void {
   const loggerConfig = get<ILoggerConfig>('logger');
@@ -20,4 +18,4 @@ function registerExternalValues(): void {
   container.register<Probe>(Probe, { useValue: new Probe(logger, {}) });
 }
 
-registerExternalValues();
+export { registerExternalValues };

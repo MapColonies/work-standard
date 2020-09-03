@@ -12,12 +12,9 @@ export class RequestLogger {
         req.body !== undefined ? JSON.stringify(req.body) : '';
       this.logger.log(
         level,
-        'received %s request on %s \nbody: %s',
-        req.method,
-        req.originalUrl,
-        body
+        `received ${req.method} request on ${req.originalUrl} \nbody: ${body}`
       );
-      next();
+      return next();
     };
   }
 }

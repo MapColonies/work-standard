@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: mc-standard
+  title: service-name
   description: basic template for map colonies service
   version: 1.0.0
 servers:
@@ -17,8 +17,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/helloWorld'
+                $ref: "#/components/schemas/helloWorld"
 components:
+  parameters:
+    idParam:
+      name: id
+      in: query
+      description: id of requested item
+      required: true
+      schema:
+        type: string
+        format: uuid
   schemas:
     helloWorld:
       required:
