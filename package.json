@@ -1,6 +1,6 @@
 {
   "name": "standard",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "This repo describes the code and work standards for vector team",
   "main": "index.js",
   "scripts": {
