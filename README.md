@@ -2,7 +2,7 @@
 
 ## Map Colonies
 
-This repo describes the work standard for Hermon's team (vector team)
+This repo describes the work standard for MapColonies organization
 
 ### Git
 There are a few packages that will help us sustain an healthy repo, an healthy repo is
