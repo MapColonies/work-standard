@@ -5,9 +5,11 @@
 *Dockerfile*
 *docker-compose*
 
+dist
+coverage
 node_modules
-#TODO: uncomment config floder when adding confd
-#config
+config
+jest_html_reporters.html
 
 *.md
 *.log
