@@ -5,6 +5,7 @@ import { injectable } from 'tsyringe';
 import { RequestLogger } from './middleware/RequestLogger';
 import { ErrorHandler } from './middleware/ErrorHandler';
 import { globalRouter } from './routers/global';
+import * as bodyParser from 'body-parser';
 
 @injectable()
 export class ServerBuilder {
@@ -19,9 +20,12 @@ export class ServerBuilder {
   }
 
   public async build(): Promise<express.Application> {
-    //initiate swagger validator
+    // initiate swagger validator
     await validatorInit('./docs/openapi3.yaml');
 
+    // process request body as json
+    this.serverInstance.use(bodyParser.json());
+    
     this.registerMiddleware();
     this.serverInstance.use(globalRouter);
 
