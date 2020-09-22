@@ -6,6 +6,7 @@ import { RequestLogger } from './middleware/RequestLogger';
 import { ErrorHandler } from './middleware/ErrorHandler';
 import { globalRouter } from './routers/global';
 import * as bodyParser from 'body-parser';
+const cors = require('cors');
 
 @injectable()
 export class ServerBuilder {
@@ -33,6 +34,7 @@ export class ServerBuilder {
   }
 
   private registerMiddleware(): void {
+    this.serverInstance.use(cors());
     this.serverInstance.use(this.requestLogger.getLoggerMiddleware());
     this.serverInstance.use(this.errorHandler.getErrorHandlerMiddleware());
   }
