@@ -21,7 +21,7 @@ export class ServerBuilder {
   }
 
   public async build(): Promise<express.Application> {
-    // initiate swagger validator
+    // Initiate swagger validator
     await validatorInit('./docs/openapi3.yaml');
     
     this.registerMiddlewares();
