@@ -6,6 +6,7 @@ import { RequestLogger } from './middleware/RequestLogger';
 import { ErrorHandler } from './middleware/ErrorHandler';
 import { globalRouter } from './routers/global';
 import * as bodyParser from 'body-parser';
+import cors from 'cors';
 
 @injectable()
 export class ServerBuilder {
@@ -20,19 +21,18 @@ export class ServerBuilder {
   }
 
   public async build(): Promise<express.Application> {
-    // initiate swagger validator
+    // Initiate swagger validator
     await validatorInit('./docs/openapi3.yaml');
-
-    // process request body as json
-    this.serverInstance.use(bodyParser.json());
     
-    this.registerMiddleware();
+    this.registerMiddlewares();
     this.serverInstance.use(globalRouter);
 
     return this.serverInstance;
   }
 
-  private registerMiddleware(): void {
+  private registerMiddlewares(): void {
+    this.serverInstance.use(cors());
+    this.serverInstance.use(bodyParser.json());
     this.serverInstance.use(this.requestLogger.getLoggerMiddleware());
     this.serverInstance.use(this.errorHandler.getErrorHandlerMiddleware());
   }
