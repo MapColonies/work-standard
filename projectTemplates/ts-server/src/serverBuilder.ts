@@ -2,11 +2,11 @@ import express from 'express';
 import { initAsync as validatorInit } from 'openapi-validator-middleware';
 import { MCLogger } from '@map-colonies/mc-logger';
 import { injectable } from 'tsyringe';
+import cors from 'cors';
+import * as bodyParser from 'body-parser';
 import { RequestLogger } from './middleware/RequestLogger';
 import { ErrorHandler } from './middleware/ErrorHandler';
 import { globalRouter } from './routers/global';
-import * as bodyParser from 'body-parser';
-import cors from 'cors';
 
 @injectable()
 export class ServerBuilder {
