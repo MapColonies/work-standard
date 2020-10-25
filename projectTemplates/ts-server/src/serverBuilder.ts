@@ -23,9 +23,10 @@ export class ServerBuilder {
   public async build(): Promise<express.Application> {
     // Initiate swagger validator
     await validatorInit('./docs/openapi3.yaml');
-    
+
     this.registerMiddlewares();
     this.serverInstance.use(globalRouter);
+    this.serverInstance.use(this.errorHandler.getErrorHandlerMiddleware());
 
     return this.serverInstance;
   }
@@ -34,6 +35,5 @@ export class ServerBuilder {
     this.serverInstance.use(cors());
     this.serverInstance.use(bodyParser.json());
     this.serverInstance.use(this.requestLogger.getLoggerMiddleware());
-    this.serverInstance.use(this.errorHandler.getErrorHandlerMiddleware());
   }
 }
