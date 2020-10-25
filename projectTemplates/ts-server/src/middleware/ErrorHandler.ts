@@ -22,7 +22,14 @@ export class ErrorHandler {
         this.logger.error(
           `${req.method} request to ${req.originalUrl}  has failed with error: ${err.message}`
         );
-        res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        if (process.env.NODE_ENV === 'development') {
+          res.status(500).json({
+            message: err.message,
+            stack: err.stack,
+          });
+        } else {
+          res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
       }
     };
   }
