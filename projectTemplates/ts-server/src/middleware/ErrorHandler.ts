@@ -4,8 +4,6 @@ import { injectable } from 'tsyringe';
 import { InputValidationError } from 'openapi-validator-middleware';
 import HttpStatus from 'http-status-codes';
 
-const defaultServerErrorCode = 500;
-
 @injectable()
 export class ErrorHandler {
   public constructor(private readonly logger: MCLogger) {}
@@ -25,7 +23,7 @@ export class ErrorHandler {
           `${req.method} request to ${req.originalUrl}  has failed with error: ${err.message}`
         );
         if (process.env.NODE_ENV === 'development') {
-          res.status(defaultServerErrorCode).json({
+          res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
             message: err.message,
             stack: err.stack,
           });

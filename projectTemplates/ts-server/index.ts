@@ -17,6 +17,6 @@ async function main(): Promise<void> {
 }
 
 main()
-    .catch(err => console.log(`main function unhandled exception ${JSON.stringify(err)}`))
+    .catch(err => console.log(`main function unhandled exception message: ${err.message}, stack: ${err.stack}`))
     .then(() => console.log('main ended'))
     .catch(() => 'obligatory catch');
