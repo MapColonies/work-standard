@@ -6,17 +6,19 @@ import { container } from 'tsyringe';
 import { getApp } from './src/app';
 
 async function main(): Promise<void> {
-  initDotEnv();
-  const defaultPort = 80;
-  const port =
-    process.env.SERVER_PORT != null ? parseInt(process.env.SERVER_PORT) : defaultPort;
-  const app = await getApp();
-  const probe = container.resolve(Probe);
-  await probe.start(app, port);
-  probe.readyFlag = true;
+	initDotEnv();
+	const defaultPort = 80;
+	const port =
+		process.env.SERVER_PORT != null ? parseInt(process.env.SERVER_PORT) : defaultPort;
+	const app = await getApp();
+	const probe = container.resolve(Probe);
+	await probe.start(app, port);
+	probe.readyFlag = true;
 }
 
 main()
-    .catch(err => console.log(`main function unhandled exception message: ${err.message}, stack: ${err.stack}`))
-    .then(() => console.log('main ended'))
-    .catch(() => 'obligatory catch');
+	.catch((error: Error) => {
+		console.log(`main function unhandled exception message: ${ error.message }, stack: ${ error.stack ?? '' }`);
+	})
+	.then(() => console.log('main ended'))
+	.catch(() => 'obligatory catch');

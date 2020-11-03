@@ -29,4 +29,4 @@ jobs:
           # Enable linters
           eslint: true
           eslint_dir: ./projectTemplates/ts-server/
-          eslint_extensions: ts,tsx
+          eslint_extensions: ts
