@@ -19,13 +19,14 @@ jobs:
 
       # ESLint and Prettier must be in `package.json`
       - name: Install Node.js dependencies
-        run: cd ./projectTemplates/ts-server && npm install
+        working-directory: ./projectTemplates/ts-server
+        run: npm install
 
       - name: Run linters
+        working-directory: ./projectTemplates/ts-server
         uses: samuelmeuli/lint-action@v1
         with:
           github_token: ${{ secrets.github_token }}
           # Enable linters
           eslint: true
           eslint_extensions: ts,tsx
-          eslint_dir: ./projectTemplates/ts-server
