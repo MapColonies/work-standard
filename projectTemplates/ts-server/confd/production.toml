@@ -3,6 +3,6 @@ src = "production.tmpl"
 dest = "/config/production.json"
 keys = [
     "/configuration/logger/level",
-    "/configuration/swagger/jsonPath",
-    "/configuration/swagger/uiPath"
+    "/configuration/swagger/json/path",
+    "/configuration/swagger/ui/path"
 ]
