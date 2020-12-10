@@ -20,16 +20,16 @@ WORKDIR /usr/app
 RUN mkdir ./confd && cp /confd/confd ./confd/confd
 COPY ./run.sh ./run.sh
 RUN chmod +x run.sh
+
+RUN chown -R app . && mkdir -p /home/app/.config && chown -R app:app /home/app
+USER app:app
+
 COPY ./package*.json ./
 RUN npm install --only=production
 COPY ./docs ./docs
 COPY ./confd ./confd
-
 COPY --from=build /usr/src/app/dist .
-COPY --from=build /usr/src/app/node_modules ./node_modules
 
-RUN chown -R app . && mkdir -p /home/app/.config && chown -R app:app /home/app/.config
-USER app:app
 HEALTHCHECK CMD wget http://127.0.0.1:${SERVER_PORT}/liveness -O /dev/null || exit 1
 
 CMD ["./run.sh"]
