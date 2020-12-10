@@ -26,7 +26,6 @@ COPY ./docs ./docs
 COPY ./confd ./confd
 
 COPY --from=build /usr/src/app/dist .
-COPY --from=build /usr/src/app/node_modules ./node_modules
 
 RUN chown -R app . && mkdir -p /home/app/.config && chown -R app:app /home/app/.config
 USER app:app
