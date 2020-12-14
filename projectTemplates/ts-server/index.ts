@@ -18,7 +18,7 @@ async function main(): Promise<void> {
 
 main()
 	.catch((error: Error) => {
-		console.log(`main function unhandled exception message: ${ error.message }, stack: ${ error.stack ?? '' }`);
+		console.log(`main function unhandled exception message: ${ error.message }, stack: ${ error.stack ? error.stack : '' }`);
 	})
 	.then(() => console.log('main ended'))
 	.catch(() => 'obligatory catch');
