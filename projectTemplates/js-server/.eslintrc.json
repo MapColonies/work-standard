@@ -1,6 +1,17 @@
 {
   "extends": "standard",
-  "plugins": [""],
+  "plugins": [
+    "markdown"
+  ],
+  "overrides": [
+    {
+      // 2. Enable the Markdown processor for all .md files.
+      "files": [
+        "**/*.md"
+      ],
+      "processor": "markdown/markdown"
+    }
+  ],
   "env": {
     "node": true
   },
@@ -13,7 +24,7 @@
     "space-before-function-paren": "off",
     "indent": [
       "error",
-      2
+      4
     ],
     "quotes": [
       "error",

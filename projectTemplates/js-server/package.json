@@ -6,6 +6,7 @@
   "scripts": {
     "test:unit": "nyc --check-coverage --lines 95 --reporter=html --reporter=text RUN_UNIT_TEST_COMMAND",
     "test:integration": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js",
     "lint": "eslint src/**",
     "lint:fix": "eslint --fix src/**",
     "release": "standard-version",
@@ -43,6 +44,7 @@
     "eslint-plugin-flowtype": "^4.7.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-markdown": "^2.0.0-rc.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.20.3",
