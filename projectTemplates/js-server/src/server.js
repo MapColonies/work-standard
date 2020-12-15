@@ -7,7 +7,7 @@ const serverInstance = express();
 serverInstance.use(cors());
 
 serverInstance.get('/helloworld', async function(req, res) {
-    return res.status(200).json({ hello: 'world' });
+  return res.status(200).json({ hello: 'world' });
 });
 
 module.exports = serverInstance;
