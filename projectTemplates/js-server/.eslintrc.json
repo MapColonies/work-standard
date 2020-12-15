@@ -1,6 +1,8 @@
 {
   "extends": "standard",
-  "plugins": [""],
+  "plugins": [
+    "markdown"
+  ],
   "env": {
     "node": true
   },
