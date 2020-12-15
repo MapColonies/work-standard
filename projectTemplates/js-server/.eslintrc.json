@@ -3,15 +3,6 @@
   "plugins": [
     "markdown"
   ],
-  "overrides": [
-    {
-      // 2. Enable the Markdown processor for all .md files.
-      "files": [
-        "**/*.md"
-      ],
-      "processor": "markdown/markdown"
-    }
-  ],
   "env": {
     "node": true
   },
